@@ -1,59 +1,43 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-
-struct node{
-
-int data;
-struct node *link;
-
+struct node {
+    int data;
+    struct node* link;
 };
 
-struct node*  add_beg(struct node **head,int d){
-
-
-   struct node *ptr=malloc(sizeof(struct node));
-   ptr->data=d;
-   ptr->link=NULL;
-
-   ptr->link= *head;
-
-   *head=ptr;
-
-
-
-
-
-};
-
-
-
-int main(){
-
-  struct node *head=malloc(sizeof(struct node));
-  head->data=45;
-  head->link= NULL;
-
-  struct node *ptr=malloc(sizeof(struct node));
-  ptr->data=98;
-  ptr->link=NULL;
-
-  head->link=ptr;
-
-  int data =3;
-
-
- add_beg(&head,data);
-  ptr=head;
-  while(ptr!=NULL){
-    printf("%d",ptr->data);
-    ptr=ptr->link;
-  }
-
-
-return 0;
-
-
+struct node* add_front(struct node **head, int data) {
+    struct node* newNode = malloc(sizeof(struct node));
+    newNode->data = data;
+    newNode->link = *head;
+    *head = newNode;
 }
 
+int main() {
+    struct node* head = malloc(sizeof(struct node));
+    struct node* node1 = malloc(sizeof(struct node));
+    struct node* node2 = malloc(sizeof(struct node));
 
+    head->data = 45;
+    head->link = node1;
+    node1->data = 32;
+    node1->link = node2;
+    node2->data = 28;
+    node2->link = NULL;
+
+    int data = 12;
+    add_front(&head, data);
+
+
+    struct node* current = head;
+    while (current != NULL) {
+        printf("%d ", current->data);
+        current = current->link;
+    }
+    printf("\n");
+
+
+
+
+    return 0;
+}
