@@ -3,29 +3,50 @@
 
 struct node {
     int data;
-    struct node *link;
+    struct node* link;
 };
 
-void add_at_end(struct node *head, int data) {
-    struct node *ptr, *temp;
-    ptr = head;
-    temp = (struct node*)malloc(sizeof(struct node));
+struct node* add_last(struct node **head, int data) {
+    struct node* newNode = malloc(sizeof(struct node));
+    newNode->data = data;
+    newNode->link = NULL;
 
-    temp->data = data;
-    temp->link = NULL;
-
-    while (ptr->link != NULL) {
-        ptr = ptr->link;
+    if (*head == NULL) {
+        *head = newNode;
+    } else {
+        struct node* current = *head;
+        while (current->link != NULL) {
+            current = current->link;
+        }
+        current->link = newNode;
     }
-    ptr->link = temp;
 }
 
 int main() {
+    struct node* head = malloc(sizeof(struct node));
+    struct node* node1 = malloc(sizeof(struct node));
+    struct node* node2 = malloc(sizeof(struct node));
 
-    struct node *head = NULL;
+    head->data = 45;
+    head->link = node1;
+    node1->data = 32;
+    node1->link = node2;
+    node2->data = 28;
+    node2->link = NULL;
+
+    int data = 12;
+    add_last(&head, data);
 
 
-    add_at_end(head, 67);
+    struct node* current = head;
+    while (current != NULL) {
+        printf("%d ", current->data);
+        current = current->link;
+    }
+    printf("\n");
+
+
+
 
     return 0;
 }
